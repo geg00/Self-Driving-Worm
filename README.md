@@ -1,6 +1,7 @@
 # Self-Driving-Worm
 
 This project was inspired by https://github.com/Sentdex/pygta5 and by https://github.com/llSourcell/How_to_simulate_a_self_driving_car
+
 Using a convolutional neural network 
 
 # Dependencies
@@ -14,6 +15,7 @@ conda env create -f environments.yml
 ```
 
 Start chrome on the top corner of the screen with a size of 800x600 go to http://slither.io
+
 Start a command prompt with Anaconda
 
 ```python
