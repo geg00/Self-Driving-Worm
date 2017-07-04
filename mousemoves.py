@@ -33,16 +33,15 @@ def angle(x,y):
 print('Press Ctrl-C to quit.')
 try:
     while True:
-        printscreen =  np.array(ImageGrab.grab(bbox=(200,200,600,400)))
+        printscreen =  np.array(ImageGrab.grab(bbox=(0,40,800,600)))
         x, y = pyautogui.position()
         angle1 = angle(x,y)
         positionStr = 'X: ' + str(x).rjust(4) + ' Y: ' + str(y).rjust(4) + ' angle = ' + str(angle1).rjust(4)
         print(positionStr, end='')
         print('\b' * len(positionStr), end='', flush=True)
-        printscreen = cv2.resize(printscreen, (80,60))
-        #printscreen = cv2.cvtColor(printscreen, cv2.COLOR_BGR2GRAY)
-        #printscreen = cv2.resize(printscreen, (160,120))
-        #cv2.imshow('window',cv2.cvtColor(printscreen, cv2.COLOR_BGR2GRAY))
+        printscreen = cv2.cvtColor(printscreen, cv2.COLOR_BGR2GRAY)
+        printscreen = cv2.resize(printscreen, (400,200))
+        #cv2.imshow('window',printscreen)
         training_data.append([printscreen,angle1])
         if cv2.waitKey(25) & 0xFF == ord('q'):
             cv2.destroyAllWindows()
