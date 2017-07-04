@@ -14,31 +14,30 @@ from keras.layers import Dense, Dropout, Flatten
 from keras.layers import Conv2D, MaxPooling2D
 from keras import backend as K
 from keras.callbacks import TensorBoard
-import random 
+import random
 
-WIDTH = 400 
+WIDTH = 400
 HEIGHT = 200
 img_rows, img_cols = WIDTH, HEIGHT
 input_shape = (WIDTH,HEIGHT,1)
 LR = 1e-3
 EPOCHS = 200
-
 MODEL_NAME = 'new_slither-{}-{}-{}-epochs.model'.format(LR, 'convnets',EPOCHS)
 
 def angle(x,y):
-        center_x = 400
-        center_y = 300
-        h_x = 600
-        h_y = 300
-        x = x - center_x
-        y = y - center_y
-        magnitude = math.sqrt(x * x + y * y)
-        if (magnitude > 0):
-                angle1 = math.acos(x / magnitude)
-        angle1 = angle1 * 180 / math.pi
-        if (y < 0):
-                angle1 = 360.0 - angle1
-        return angle1
+	center_x = 400
+	center_y = 300
+	h_x = 600
+	h_y = 300
+	x = x - center_x
+	y = y - center_y
+	magnitude = math.sqrt(x * x + y * y)
+	if (magnitude > 0):
+		angle1 = math.acos(x / magnitude)
+	angle1 = angle1 * 180 / math.pi
+	if (y < 0):
+		angle1 = 360.0 - angle1
+	return angle1
 
 model = Sequential()
 model.add(Conv2D(24, (5, 5), activation='elu', strides=(2, 2), input_shape=input_shape,))
@@ -57,32 +56,32 @@ model.add(Dense(9, activation='softmax'))
 model.load_weights(MODEL_NAME)
 
 for i in list(range(4))[::-1]:
-        print(i+1)
-        time.sleep(1)
+	print(i+1)
+	time.sleep(1)
 
 def zero():
-        pyautogui.moveTo(500, 300,1)
+	pyautogui.moveTo(500, 300,1)
 
 def one():
-        pyautogui.moveTo(500, 400,1)
+	pyautogui.moveTo(500, 400,1)
 
 def two():
-        pyautogui.moveTo(500, 500,1)
+	pyautogui.moveTo(500, 500,1)
 
 def three():
-        pyautogui.moveTo(300, 400,1)
+	pyautogui.moveTo(300, 400,1)
 
 def four():
-        pyautogui.moveTo(300, 400,1)
+	pyautogui.moveTo(300, 400,1)
 
 def five():
-        pyautogui.moveTo(300, 300,1)
+	pyautogui.moveTo(300, 300,1)
 
 def six():
-        pyautogui.moveTo(400, 200,1)
+	pyautogui.moveTo(400, 200,1)
 
 def seven():
-        pyautogui.moveTo(500, 200,1)
+	pyautogui.moveTo(500, 200,1)
 
 options = {0 : zero,
            1 : one,
@@ -93,7 +92,7 @@ options = {0 : zero,
            6 : six,
            7 : seven,
            8 : zero,
-           9 : zero,
+           9 : zero,		
 }
 file = 0
 file_name = 'slither_data_new-{}.npy'.format(file)
@@ -114,7 +113,7 @@ def recalculate(model):
         real_Y = keras.utils.to_categorical(Y, num_classes=9)
         model.compile(optimizer='rmsprop', loss='categorical_crossentropy',   metrics=['accuracy'])
         model.fit(X, real_Y, epochs=20, batch_size=10,
-                verbose=1, validation_split=0.1)
+                verbose=1, validation_split=0.1)  
         model.save(MODEL_NAME)
         os.remove(file_name)
      return model
@@ -127,9 +126,9 @@ try:
         printscreen =  np.array(ImageGrab.grab(bbox=(200,200,600,400)))
         printscreen = cv2.cvtColor(printscreen, cv2.COLOR_BGR2GRAY)
         printscreen = cv2.resize(printscreen, (WIDTH,HEIGHT))
-        #cv2.imshow('window',printscreen)
+        #cv2.imshow('window',printscreen)        
         moves = model.predict(printscreen.reshape(-1,WIDTH,HEIGHT,1))[0]
-        final_move = -1
+        final_move = -1        
         for _i in range(0, len(moves)):
             if moves[_i] > 0.8:
                final_move = _i
