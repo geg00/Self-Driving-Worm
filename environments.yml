@@ -3,7 +3,7 @@ channels:
     - https://conda.anaconda.org/menpo
     - conda-forge
 dependencies:
-    - python==3.5.2
+    - python
     - numpy
     - matplotlib
     - jupyter
@@ -18,7 +18,8 @@ dependencies:
     - seaborn
     - pandas
     - imageio
+    - PyAutoGUI
     - pip:
         - moviepy
-        - tensorflow==1.1
-        - keras==1.2
+        - tensorflow
+        - keras
